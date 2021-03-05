@@ -10,7 +10,7 @@ class EntityManagerCreator
 {
     public function getEntityManager(): EntityManagerInterface
     {
-        $paths = [__DIR__.'/../Entity'];
+        $paths = [__DIR__.'/../Model/Entity'];
         $isDevMode = true;
 
         $dbParams = [

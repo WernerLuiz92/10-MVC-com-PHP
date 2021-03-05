@@ -2,8 +2,8 @@
 
 namespace Werner\MVC\Controller;
 
-use Werner\MVC\Entity\Course;
 use Werner\MVC\Infra\EntityManagerCreator;
+use Werner\MVC\Model\Entity\Course;
 
 class ListCourses implements InterfaceRequestController
 {
@@ -21,6 +21,6 @@ class ListCourses implements InterfaceRequestController
     {
         $titulo = 'Lista de Cursos';
         $courses = $this->coursesRepository->findAll();
-        require_once __DIR__.'/../../view/courses/listCourses.php';
+        require_once __DIR__.'/../View/courses/listCourses.php';
     }
 }

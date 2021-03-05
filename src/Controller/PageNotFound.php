@@ -7,6 +7,6 @@ class PageNotFound implements InterfaceRequestController
     public function requestProcess(): void
     {
         $titulo = '404 - Página não encontrada!';
-        require_once __DIR__.'/../../view/pageNotFound.php';
+        require_once __DIR__.'/../View/pageNotFound.php';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Werner\MVC\Entity;
+namespace Werner\MVC\Model\Entity;
 
 /**
  * @Entity
