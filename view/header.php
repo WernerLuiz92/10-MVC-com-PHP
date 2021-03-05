@@ -14,7 +14,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Curso MVC Werner</h1>
-        <h3><?= $titulo; ?></h3>
+        <h4><?= $titulo; ?></h4>
     </div>
 
     <a href="/" class="btn btn-primary mb-2">Início</a>
