@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Werner\\MVC\\": "src/"
+        }
+    },
+    "require": {
+        "doctrine/orm": "^2.6"
+    }
+}
