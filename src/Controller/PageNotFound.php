@@ -8,5 +8,6 @@ class PageNotFound implements InterfaceRequestController
     {
         $titulo = '404 - Página não encontrada!';
         require_once __DIR__.'/../View/pageNotFound.php';
+        http_response_code(404);
     }
 }

@@ -27,5 +27,7 @@ class Persist implements InterfaceRequestController
 
         $this->entityManager->persist($course);
         $this->entityManager->flush();
+
+        header('Location: /listar-cursos', true, 302);
     }
 }

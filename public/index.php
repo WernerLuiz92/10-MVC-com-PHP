@@ -2,35 +2,17 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Werner\MVC\Controller\HomePage;
-use Werner\MVC\Controller\InsertCourse;
-use Werner\MVC\Controller\ListCourses;
-use Werner\MVC\Controller\PageNotFound;
-use Werner\MVC\Controller\Persist;
+$routes = require_once __DIR__.'/../config/routes.php';
+$path = $_SERVER['PATH_INFO'];
 
 if (!isset($_SERVER['PATH_INFO'])) {
-    $controller = new HomePage();
-    $controller->requestProcess();
-    exit();
+    $path = '/';
+} elseif (!array_key_exists($path, $routes)) {
+    $path = '/*';
 }
 
-switch ($_SERVER['PATH_INFO']) {
-    case '/listar-cursos':
-        $controller = new ListCourses();
-        $controller->requestProcess();
-        break;
+$classController = $routes[$path];
 
-    case '/novo-curso':
-        $controller = new InsertCourse();
-        $controller->requestProcess();
-        break;
-
-    case '/salvar-curso':
-        $controller = new Persist();
-        $controller->requestProcess();
-        break;
-
-    default:
-    $controller = new PageNotFound();
-    $controller->requestProcess();
-}
+/** @var InterfaceRequestController $classController */
+$controller = new $classController();
+$controller->requestProcess();
