@@ -4,9 +4,9 @@ namespace Werner\MVC\Entity;
 
 /**
  * @Entity
- * @Table(name="cursos")
+ * @Table(name="course")
  */
-class Curso
+class Course
 {
     /**
      * @Id
@@ -17,7 +17,7 @@ class Curso
     /**
      * @Column(type="string")
      */
-    private $descricao;
+    private $description;
 
     public function getId(): int
     {
@@ -29,13 +29,13 @@ class Curso
         $this->id = $id;
     }
 
-    public function getDescricao(): string
+    public function getDescription(): string
     {
-        return $this->descricao;
+        return $this->description;
     }
 
-    public function setDescricao(string $descricao): void
+    public function setDescription(string $description): void
     {
-        $this->descricao = $descricao;
+        $this->description = $description;
     }
 }

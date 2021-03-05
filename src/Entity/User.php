@@ -4,9 +4,9 @@ namespace Werner\MVC\Entity;
 
 /**
  * @Entity
- * @Table(name="usuarios")
+ * @Table(name="users")
  */
-class Usuario
+class User
 {
     /**
      * @Id
@@ -21,10 +21,10 @@ class Usuario
     /**
      * @Column(type="string")
      */
-    private $senha;
+    private $password;
 
-    public function senhaEstaCorreta(string $senhaPura): bool
+    public function passwordMatch(string $purePassword): bool
     {
-        return password_verify($senhaPura, $this->senha);
+        return password_verify($purePassword, $this->password);
     }
 }

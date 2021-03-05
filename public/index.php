@@ -1,19 +1,30 @@
 <?php
 
+require_once __DIR__.'/../vendor/autoload.php';
+
+use Werner\MVC\Controller\HomePage;
+use Werner\MVC\Controller\InsertCourse;
+use Werner\MVC\Controller\ListCourses;
+use Werner\MVC\Controller\PageNotFound;
+
 if (!isset($_SERVER['PATH_INFO'])) {
-    require_once 'inicio.php';
+    $controller = new HomePage();
+    $controller->requestProcess();
     exit();
 }
 
 switch ($_SERVER['PATH_INFO']) {
     case '/listar-cursos':
-        require_once 'listar-cursos.php';
+        $controller = new ListCourses();
+        $controller->requestProcess();
         break;
 
     case '/novo-curso':
-        require_once 'formulario-novo-curso.php';
+        $controller = new InsertCourse();
+        $controller->requestProcess();
         break;
 
     default:
-        require_once '404.php';
+    $controller = new PageNotFound();
+    $controller->requestProcess();
 }
