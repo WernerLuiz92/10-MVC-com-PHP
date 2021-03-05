@@ -13,11 +13,16 @@ class Course
      * @GeneratedValue
      * @Column(type="integer")
      */
-    private $id;
+    private int $id;
     /**
      * @Column(type="string")
      */
-    private $description;
+    private string $description;
+
+    public function __construct(string $description)
+    {
+        $this->description = $description;
+    }
 
     public function getId(): int
     {
