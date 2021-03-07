@@ -22,12 +22,38 @@ class Persist implements InterfaceRequestController
             'descricao',
             FILTER_SANITIZE_STRING
         );
+        $id = filter_input(
+            INPUT_POST,
+            'id',
+            FILTER_VALIDATE_INT
+        );
 
-        $course = new Course($description);
+        if (is_null($id) || $id === false) {
+            $course = $this->newCourse($description);
+        } else {
+            $course = $this->updateCourse($id, $description);
+        }
 
         $this->entityManager->persist($course);
         $this->entityManager->flush();
 
         header('Location: /listar-cursos', true, 302);
+    }
+
+    private function newCourse(string $description): Course
+    {
+        $course = new Course($description);
+
+        return $course;
+    }
+
+    private function updateCourse(int $id, string $description)
+    {
+        $course = $this->entityManager
+            ->getReference(Course::class, $id);
+
+        $course->setDescription($description);
+
+        return $course;
     }
 }
