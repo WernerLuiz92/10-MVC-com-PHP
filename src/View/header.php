@@ -13,25 +13,30 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Cruso MVC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="container-fluid d-flex">
+            <a class="navbar-brand" href="/">Cruso MVC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">     
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($activePage == '/') ? 'active' : ''; ?>" href="/">Página Inicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($activePage == '/listar-cursos') ? 'active' : ''; ?>" href="/listar-cursos">Listar Cursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($activePage == '/novo-curso') ? 'active' : ''; ?>" href="/novo-curso">Cadastrar Curso</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <ul class="navbar-nav">
-            <li class="nav-item">
-            <a class="nav-link <?= ($activePage == '/') ? 'active' : ''; ?>" href="/">Página Inicial</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link <?= ($activePage == '/listar-cursos') ? 'active' : ''; ?>" href="/listar-cursos">Listar Cursos</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link <?= ($activePage == '/novo-curso') ? 'active' : ''; ?>" href="/novo-curso">Cadastrar Curso</a>
+            <li class="nav-item float-end ms-3 me-3">
+                <a href="/login" class="btn btn-sm btn-success">Login</a>
             </li>
         </ul>
-        </div>
-    </div>
     </nav>
     <div class="container mt-4">
         <nav aria-label="breadcrumb">
