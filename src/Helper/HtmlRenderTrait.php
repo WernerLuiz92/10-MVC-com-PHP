@@ -2,7 +2,7 @@
 
 namespace Werner\MVC\Controller;
 
-abstract class ControllerViews
+trait HtmlRenderTrait
 {
     public function renderView(string $templatePath, array $data): string
     {

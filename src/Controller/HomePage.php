@@ -2,8 +2,10 @@
 
 namespace Werner\MVC\Controller;
 
-class HomePage extends ControllerViews implements InterfaceRequestController
+class HomePage implements InterfaceRequestController
 {
+    use HtmlRenderTrait;
+
     public function requestProcess(): void
     {
         echo $this->renderView('homePage.php', [

@@ -2,8 +2,10 @@
 
 namespace Werner\MVC\Controller;
 
-class InsertCourse extends ControllerViews implements InterfaceRequestController
+class InsertCourse implements InterfaceRequestController
 {
+    use HtmlRenderTrait;
+
     public function requestProcess(): void
     {
         echo $this->renderView('courses/formCourse.php', [

@@ -5,8 +5,10 @@ namespace Werner\MVC\Controller;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
-class UpdateCourse extends ControllerViews implements InterfaceRequestController
+class UpdateCourse implements InterfaceRequestController
 {
+    use HtmlRenderTrait;
+
     private $courseRepository;
 
     public function __construct()
