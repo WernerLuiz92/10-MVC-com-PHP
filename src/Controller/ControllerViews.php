@@ -2,11 +2,15 @@
 
 namespace Werner\MVC\Controller;
 
-class ControllerViews
+abstract class ControllerViews
 {
-    public function renderView(string $templatePath, array $data): void
+    public function renderView(string $templatePath, array $data): string
     {
         extract($data);
+        ob_start();
         require_once __DIR__.'/../View/'.$templatePath;
+        $view = ob_get_clean();
+
+        return $view;
     }
 }

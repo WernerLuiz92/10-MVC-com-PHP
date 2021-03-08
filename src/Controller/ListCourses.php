@@ -21,7 +21,7 @@ class ListCourses extends ControllerViews implements InterfaceRequestController
     {
         $courses = $this->coursesRepository->findAll();
 
-        $this->renderView('courses/listCourses.php', [
+        echo $this->renderView('courses/listCourses.php', [
             'title' => 'Lista de Cursos',
             'activePage' => '/listar-cursos',
             'courses' => $courses,

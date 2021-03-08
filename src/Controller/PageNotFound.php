@@ -8,7 +8,7 @@ class PageNotFound extends ControllerViews implements InterfaceRequestController
     {
         http_response_code(404);
 
-        $this->renderView('pageNotFound.php', [
+        echo $this->renderView('pageNotFound.php', [
             'title' => '404 - Página não encontrada!',
         ]);
     }

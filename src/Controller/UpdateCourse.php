@@ -36,7 +36,7 @@ class UpdateCourse extends ControllerViews implements InterfaceRequestController
 
         $description = $course->getDescription();
 
-        $this->renderView('courses/formCourse.php', [
+        echo $this->renderView('courses/formCourse.php', [
             'title' => "Alterar Curso: $description",
             'activePage' => '/listar-cursos',
             'id' => $id,
