@@ -2,6 +2,7 @@
 
 namespace Werner\MVC\Controller;
 
+use Werner\MVC\Helper\HtmlRenderTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 

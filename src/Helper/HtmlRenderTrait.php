@@ -1,6 +1,6 @@
 <?php
 
-namespace Werner\MVC\Controller;
+namespace Werner\MVC\Helper;
 
 trait HtmlRenderTrait
 {

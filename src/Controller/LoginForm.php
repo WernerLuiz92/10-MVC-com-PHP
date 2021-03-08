@@ -2,6 +2,8 @@
 
 namespace Werner\MVC\Controller;
 
+use Werner\MVC\Helper\HtmlRenderTrait;
+
 class LoginForm implements InterfaceRequestController
 {
     use HtmlRenderTrait;

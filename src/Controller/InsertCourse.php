@@ -2,6 +2,8 @@
 
 namespace Werner\MVC\Controller;
 
+use Werner\MVC\Helper\HtmlRenderTrait;
+
 class InsertCourse implements InterfaceRequestController
 {
     use HtmlRenderTrait;

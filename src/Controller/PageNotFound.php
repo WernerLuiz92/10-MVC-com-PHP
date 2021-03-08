@@ -3,6 +3,7 @@
 namespace Werner\MVC\Controller;
 
 use Werner\MVC\Helper\FlashMessageTrait;
+use Werner\MVC\Helper\HtmlRenderTrait;
 
 class PageNotFound implements InterfaceRequestController
 {
