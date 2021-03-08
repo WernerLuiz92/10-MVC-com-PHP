@@ -30,12 +30,16 @@ class Persist implements InterfaceRequestController
 
         if (is_null($id) || $id === false) {
             $course = $this->newCourse($description);
+            $_SESSION['message'] = "Curso {$course->getDescription()} cadastrado com sucesso!";
         } else {
             $course = $this->updateCourse($id, $description);
+            $_SESSION['message'] = "Curso {$course->getDescription()} alterado com sucesso!";
         }
 
         $this->entityManager->persist($course);
         $this->entityManager->flush();
+
+        $_SESSION['message_type'] = 'success auto-close';
 
         header('Location: /listar-cursos', true, 302);
     }

@@ -44,7 +44,7 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
         if (is_null($user) || !$user->passwordMatch($password)) {
             $_SESSION['message_type'] = 'danger';
             $_SESSION['message'] = 'Por favor verifique.';
-            $_SESSION['strong_message'] = 'E-mail não cadastrado ou Senha incorreta!';
+            $_SESSION['strong_message'] = 'E-mail ou Senha incorretos!';
 
             header('Location: /login');
 
@@ -53,6 +53,9 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
 
         $_SESSION['logged_user'] = true;
         $_SESSION['logged_user_name'] = $user->getName();
+
+        $_SESSION['message_type'] = 'info auto-close';
+        $_SESSION['message'] = "Usuário {$_SESSION['logged_user_name']} logado com sucesso!";
 
         header('Location: /');
     }
