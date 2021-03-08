@@ -1,0 +1,6 @@
+{
+  "name": "Curso de MVC na Alura",
+  "description": "Um CRUD utilizando os principios de MVC desenvolvido em PHP com Doctrine ORM",
+  "repository": "https://github.com/WernerLuiz92/10-MVC-com-PHP",
+  "addons": []
+}
