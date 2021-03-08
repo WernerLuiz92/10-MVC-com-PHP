@@ -13,6 +13,6 @@
             autocomplete="off"
         >
     </div>
-    <button class="btn btn-success mt-1">Salvar</button>
+    <button class="btn btn-success mt-2">Salvar</button>
 </form>
 <?php require_once __DIR__.'/../footer.php'; ?>
