@@ -41,6 +41,16 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
-        echo $user->passwordMatch($password);
+        if (is_null($user) || !$user->passwordMatch($password)) {
+            echo $this->renderView('login/loginForm.php', [
+                'title' => 'Login',
+                'isVisible' => true,
+                'message' => 'E-mail inexistente ou senha incorreta!',
+            ]);
+
+            return;
+        }
+
+        header('Location: /');
     }
 }

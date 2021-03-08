@@ -13,18 +13,37 @@ class User
      * @GeneratedValue
      * @Column(type="integer")
      */
-    private $id;
+    private int $id;
+
     /**
      * @Column(type="string")
      */
-    private $email;
+    private string $name;
+
     /**
      * @Column(type="string")
      */
-    private $password;
+    private string $email;
+
+    /**
+     * @Column(type="string")
+     */
+    private string $password;
 
     public function passwordMatch(string $purePassword): bool
     {
         return password_verify($purePassword, $this->password);
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName($name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

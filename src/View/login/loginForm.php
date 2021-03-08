@@ -42,10 +42,10 @@
                 <i class="fas fa-exclamation-triangle"></i> <?= $message; ?>
             </div>
             <div class="form-group mt-1">
-                <input type="text" id="email" name="email" class="form-control" placeholder="E-mail" value="<?= $email; ?>" />
+                <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="" required/>
             </div>
             <div class="form-group mt-1">
-                <input type="password" id="password" class="form-control" placeholder="Senha" value="" />
+                <input type="password" id="password" name="password" class="form-control" placeholder="Senha" value="" required/>
             </div>
             <div class="form-group mt-3 d-flex justify-content-center">
                 <input type="submit" class="btnSubmit" value="Login" />
