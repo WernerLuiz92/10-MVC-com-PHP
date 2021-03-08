@@ -5,6 +5,7 @@ use Werner\MVC\Controller\HomePage;
 use Werner\MVC\Controller\InsertCourse;
 use Werner\MVC\Controller\ListCourses;
 use Werner\MVC\Controller\LoginForm;
+use Werner\MVC\Controller\Logout;
 use Werner\MVC\Controller\PageNotFound;
 use Werner\MVC\Controller\Persist;
 use Werner\MVC\Controller\UpdateCourse;
@@ -18,6 +19,7 @@ $routes = [
     '/alterar-curso' => UpdateCourse::class,
     '/login' => LoginForm::class,
     '/realiza-login' => ValidateLogin::class,
+    '/logout' => Logout::class,
     // '/resetar-senha' => '',
     '/' => HomePage::class,
     '/*' => PageNotFound::class,

@@ -51,6 +51,9 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
             return;
         }
 
+        $_SESSION['logged_user'] = true;
+        $_SESSION['logged_user_name'] = $user->getName();
+
         header('Location: /');
     }
 }

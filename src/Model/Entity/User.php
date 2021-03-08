@@ -16,7 +16,7 @@ class User
     private int $id;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      */
     private string $name;
 

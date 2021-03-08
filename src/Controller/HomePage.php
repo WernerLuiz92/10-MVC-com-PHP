@@ -7,7 +7,7 @@ class HomePage extends ControllerViews implements InterfaceRequestController
     public function requestProcess(): void
     {
         echo $this->renderView('homePage.php', [
-            'title' => 'Página Inicial',
+            'title' => '',
             'activePage' => '/',
         ]);
     }
