@@ -29,11 +29,11 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
         );
 
         if (is_null($email) || $email === false) {
-            echo $this->renderView('login/loginForm.php', [
-                'title' => 'Login',
-                'isVisible' => true,
-                'message' => 'E-mail inválido!',
-            ]);
+            $_SESSION['message_type'] = 'warning';
+            $_SESSION['message'] = 'Por favor verifique.';
+            $_SESSION['strong_message'] = 'E-mail inválido!';
+
+            header('Location: /login');
 
             return;
         }
@@ -42,11 +42,11 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if (is_null($user) || !$user->passwordMatch($password)) {
-            echo $this->renderView('login/loginForm.php', [
-                'title' => 'Login',
-                'isVisible' => true,
-                'message' => 'E-mail inexistente ou senha incorreta!',
-            ]);
+            $_SESSION['message_type'] = 'danger';
+            $_SESSION['message'] = 'Por favor verifique.';
+            $_SESSION['strong_message'] = 'E-mail não cadastrado ou Senha incorreta!';
+
+            header('Location: /login');
 
             return;
         }

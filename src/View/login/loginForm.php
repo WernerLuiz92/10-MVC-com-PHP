@@ -38,9 +38,16 @@
     <div class="col-md-6 login-form-1">
         <h3>Fazer login</h3>
         <form action="/realiza-login" method="POST">
-            <div class="alert alert-warning mt-3 align-middle" role="alert" <?= ($isVisible) ? '' : 'style="display: none;"'; ?> >
-                <i class="fas fa-exclamation-triangle"></i> <?= $message; ?>
-            </div>
+            <?php if (isset($_SESSION['message']) && !isset($_SESSION['logged_user'])) :?>
+                <div class="alert alert-<?= $_SESSION['message_type']; ?> alert-dismissible fade show" role="alert">
+                    <strong><?= (isset($_SESSION['strong_message'])) ? $_SESSION['strong_message'] : ''; ?></strong> <?= $_SESSION['message']; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php
+                unset($_SESSION['message_type']);
+                unset($_SESSION['message']);
+                unset($_SESSION['strong_message']);
+            endif; ?>
             <div class="form-group mt-1">
                 <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="" required/>
             </div>
