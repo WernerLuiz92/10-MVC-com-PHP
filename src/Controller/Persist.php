@@ -3,11 +3,14 @@
 namespace Werner\MVC\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
 class Persist implements InterfaceRequestController
 {
+    use FlashMessageTrait;
+
     private EntityManagerInterface $entityManager;
 
     public function __construct()
@@ -30,17 +33,16 @@ class Persist implements InterfaceRequestController
 
         if (is_null($id) || $id === false) {
             $course = $this->newCourse($description);
-            $_SESSION['message'] = "Curso {$course->getDescription()} cadastrado com sucesso!";
+            $message = "Curso {$course->getDescription()} cadastrado com sucesso!";
         } else {
             $course = $this->updateCourse($id, $description);
-            $_SESSION['message'] = "Curso {$course->getDescription()} alterado com sucesso!";
+            $message = "Curso {$course->getDescription()} alterado com sucesso!";
         }
 
         $this->entityManager->persist($course);
         $this->entityManager->flush();
 
-        $_SESSION['message_type'] = 'success auto-close';
-
+        $this->setFlashMessage('success', $message, true);
         header('Location: /listar-cursos', true, 302);
     }
 

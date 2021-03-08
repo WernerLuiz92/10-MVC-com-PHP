@@ -15,7 +15,7 @@ if (!isset($_SERVER['PATH_INFO'])) {
 
 $isLoginRoute = stripos($path, 'login');
 
-if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/') {
+if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
     header('Location: /login');
     exit();
 }

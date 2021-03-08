@@ -2,11 +2,14 @@
 
 namespace Werner\MVC\Controller;
 
+use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
 class DeleteCourse implements InterfaceRequestController
 {
+    use FlashMessageTrait;
+
     public function __construct()
     {
         $this->entityManager = (new EntityManagerCreator())
@@ -22,9 +25,7 @@ class DeleteCourse implements InterfaceRequestController
         );
 
         if (is_null($id) || $id === false) {
-            $_SESSION['message'] = 'O ID informado não é válido!';
-            $_SESSION['message_type'] = 'danger';
-
+            $this->setFlashMessage('danger', 'O ID informado não é válido!');
             header('Location: /listar-cursos');
 
             return;
@@ -33,16 +34,13 @@ class DeleteCourse implements InterfaceRequestController
         $course = $this->entityManager->find(Course::class, $id);
 
         if (is_null($course)) {
-            $_SESSION['message'] = 'O ID informado não foi encontrado!';
-            $_SESSION['message_type'] = 'danger';
-
+            $this->setFlashMessage('danger', 'O ID informado não foi encontrado!');
             header('Location: /listar-cursos');
 
             return;
         }
 
-        $_SESSION['message'] = "Curso {$course->getDescription()} excluído!";
-        $_SESSION['message_type'] = 'danger auto-close';
+        $this->setFlashMessage('danger', "Curso {$course->getDescription()} excluído!", true);
 
         $this->entityManager->remove($course);
         $this->entityManager->flush();
