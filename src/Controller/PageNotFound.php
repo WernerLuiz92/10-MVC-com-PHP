@@ -2,12 +2,14 @@
 
 namespace Werner\MVC\Controller;
 
-class PageNotFound implements InterfaceRequestController
+class PageNotFound extends ControllerViews implements InterfaceRequestController
 {
     public function requestProcess(): void
     {
-        $titulo = '404 - Página não encontrada!';
-        require_once __DIR__.'/../View/pageNotFound.php';
         http_response_code(404);
+
+        $this->renderView('pageNotFound.php', [
+            'title' => '404 - Página não encontrada!',
+        ]);
     }
 }

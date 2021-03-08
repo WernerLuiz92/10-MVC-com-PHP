@@ -2,11 +2,13 @@
 
 namespace Werner\MVC\Controller;
 
-class InsertCourse implements InterfaceRequestController
+class InsertCourse extends ControllerViews implements InterfaceRequestController
 {
     public function requestProcess(): void
     {
-        $titulo = 'Cadastrar Novo Curso';
-        require_once __DIR__.'/../View//courses/formCourse.php';
+        $this->renderView('courses/formCourse.php', [
+            'title' => 'Cadastrar Novo Curso',
+            'activePage' => '/novo-curso',
+        ]);
     }
 }

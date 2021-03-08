@@ -5,7 +5,7 @@ namespace Werner\MVC\Controller;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
-class UpdateCourse implements InterfaceRequestController
+class UpdateCourse extends ControllerViews implements InterfaceRequestController
 {
     private $courseRepository;
 
@@ -36,7 +36,11 @@ class UpdateCourse implements InterfaceRequestController
 
         $description = $course->getDescription();
 
-        $titulo = "Alterar Curso: $description";
-        require_once __DIR__.'/../View//courses/formCourse.php';
+        $this->renderView('courses/formCourse.php', [
+            'title' => "Alterar Curso: $description",
+            'activePage' => '/listar-cursos',
+            'id' => $id,
+            'description' => $description,
+        ]);
     }
 }

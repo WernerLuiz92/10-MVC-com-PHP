@@ -2,11 +2,13 @@
 
 namespace Werner\MVC\Controller;
 
-class HomePage implements InterfaceRequestController
+class HomePage extends ControllerViews implements InterfaceRequestController
 {
     public function requestProcess(): void
     {
-        $titulo = 'Página Inicial';
-        require_once __DIR__.'/../View/homePage.php';
+        $this->renderView('homePage.php', [
+            'title' => 'Página Inicial',
+            'activePage' => '/',
+        ]);
     }
 }
