@@ -2,6 +2,7 @@
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\PathHandler;
 
@@ -22,11 +23,13 @@ $creator = new ServerRequestCreator(
 
 $request = $creator->fromGlobals();
 
-// $classController = PathHandler::handle($_SERVER['REQUEST_URI'], $routes);
-echo PathHandler::handle($_SERVER['REQUEST_URI'], $routes);
+$classController = PathHandler::handle($_SERVER['REQUEST_URI'], $routes);
+
+/** @var ContainerInterface $container */
+$container = require_once __DIR__.'/../config/dependencies.php';
 
 /** @var RequestHandlerInterface $controller */
-$controller = new $classController();
+$controller = $container->get($classController);
 $response = $controller->handle($request);
 
 foreach ($response->getHeaders() as $name => $values) {
