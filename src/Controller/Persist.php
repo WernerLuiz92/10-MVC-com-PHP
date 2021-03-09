@@ -23,16 +23,10 @@ class Persist implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $description = filter_input(
-            INPUT_POST,
-            'descricao',
-            FILTER_SANITIZE_STRING
-        );
-        $id = filter_input(
-            INPUT_POST,
-            'id',
-            FILTER_VALIDATE_INT
-        );
+        $parsedBody = $request->getParsedBody();
+
+        $id = filter_var($parsedBody['id'], FILTER_VALIDATE_INT);
+        $description = filter_var($parsedBody['descricao'], FILTER_SANITIZE_STRING);
 
         if (is_null($id) || $id === false) {
             $course = $this->newCourse($description);

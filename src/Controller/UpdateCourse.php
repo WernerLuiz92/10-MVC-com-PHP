@@ -7,12 +7,14 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Helper\HtmlRenderTrait;
 use Werner\MVC\Model\Entity\Course;
 
 class UpdateCourse implements RequestHandlerInterface
 {
     use HtmlRenderTrait;
+    use FlashMessageTrait;
 
     private $courseRepository;
 
@@ -23,13 +25,13 @@ class UpdateCourse implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = filter_input(
-            INPUT_GET,
-            'id',
-            FILTER_VALIDATE_INT
-        );
+        $queryParams = $request->getQueryParams();
 
-        if (is_null($id) || $id === false) {
+        $id = filter_var($queryParams['id'], FILTER_VALIDATE_INT);
+
+        if ($id === false) {
+            $this->setFlashMessage('warning', 'Por favor verifique.', false, 'ID inválido ou em branco!');
+
             return new Response(302, [
                 'Location' => '/listar-cursos',
             ]);
@@ -37,6 +39,14 @@ class UpdateCourse implements RequestHandlerInterface
 
         $course = $this->courseRepository
             ->find($id);
+
+        if (is_null($course)) {
+            $this->setFlashMessage('danger', 'Por favor verifique.', false, 'ID não encontrado!');
+
+            return new Response(302, [
+                'Location' => '/listar-cursos',
+            ]);
+        }
 
         $description = $course->getDescription();
 

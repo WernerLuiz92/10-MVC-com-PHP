@@ -23,14 +23,12 @@ class DeleteCourse implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = filter_input(
-            INPUT_GET,
-            'id',
-            FILTER_VALIDATE_INT
-        );
+        $queryParams = $request->getQueryParams();
+
+        $id = filter_var($queryParams['id'], FILTER_VALIDATE_INT);
 
         if (is_null($id) || $id === false) {
-            $this->setFlashMessage('danger', 'O ID informado não é válido!');
+            $this->setFlashMessage('warning', 'Por favor verifique.', false, 'ID inválido ou em branco!');
 
             return new Response(302, [
                 'Location' => '/listar-cursos',
@@ -40,14 +38,14 @@ class DeleteCourse implements RequestHandlerInterface
         $course = $this->entityManager->find(Course::class, $id);
 
         if (is_null($course)) {
-            $this->setFlashMessage('danger', 'O ID informado não foi encontrado!');
+            $this->setFlashMessage('danger', 'Por favor verifique.', false, 'ID não encontrado!');
 
             return new Response(302, [
                 'Location' => '/listar-cursos',
             ]);
         }
 
-        $this->setFlashMessage('danger', "Curso {$course->getDescription()} excluído!", true);
+        $this->setFlashMessage('success', "Curso {$course->getDescription()} excluído!", true);
 
         $this->entityManager->remove($course);
         $this->entityManager->flush();

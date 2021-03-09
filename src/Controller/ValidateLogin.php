@@ -23,18 +23,12 @@ class ValidateLogin implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $email = filter_input(
-            INPUT_POST,
-            'email',
-            FILTER_VALIDATE_EMAIL
-        );
-        $password = filter_input(
-            INPUT_POST,
-            'password',
-            FILTER_SANITIZE_STRING
-        );
+        $parsedBody = $request->getParsedBody();
 
-        if (is_null($email) || $email === false) {
+        $email = filter_var($parsedBody['email'], FILTER_VALIDATE_EMAIL);
+        $password = filter_var($parsedBody['password'], FILTER_SANITIZE_STRING);
+
+        if ($email === false) {
             $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!', 'login');
 
             return new Response(302, [
