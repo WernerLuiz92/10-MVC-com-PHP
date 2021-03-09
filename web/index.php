@@ -15,11 +15,7 @@ $routes = require_once __DIR__.'/../config/routes.php';
 // Heroku
 $path = $_SERVER['REQUEST_URI'];
 
-var_dump($path);
-
-exit();
-
-if (!isset($_SERVER['PATH_INFO'])) {
+if (!isset($path)) {
     $path = '/';
 } elseif (!array_key_exists($path, $routes)) {
     $path = '/*';
