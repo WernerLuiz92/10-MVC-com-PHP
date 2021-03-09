@@ -44,9 +44,8 @@ class ValidateLogin implements InterfaceRequestController
 
         // /** @var User $user */
         // $user = $this->userRepository->findOneBy(['email' => $email]);
-        $users = $this->userRepository->findAll();
 
-        var_dump($users);
+        var_dump($this->userRepository->findAll());
         exit();
 
         // if (is_null($user) || !$user->passwordMatch($password)) {
