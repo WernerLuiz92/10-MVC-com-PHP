@@ -16,7 +16,7 @@ class Logout implements InterfaceRequestController
         session_destroy();
 
         session_start();
-        $this->setFlashMessage('info', 'Usuário desconectado!', 'header', true);
+        $this->setFlashMessage('info', 'Usuário desconectado!', true);
 
         return new Response(302, [
             'Location' => '/',

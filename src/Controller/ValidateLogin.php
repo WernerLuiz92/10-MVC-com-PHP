@@ -35,6 +35,8 @@ class ValidateLogin implements InterfaceRequestController
         );
 
         if (is_null($email) || $email === false) {
+            echo 'Entrou Aqui';
+            exit();
             $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!', 'login');
 
             return new Response(302, [
