@@ -37,6 +37,10 @@ $request = $creator->fromGlobals();
 
 $classController = $routes[$path];
 
+var_dump($classController);
+
+exit();
+
 /** @var InterfaceRequestController $classController */
 $controller = new $classController();
 $response = $controller->requestProcess($request);
