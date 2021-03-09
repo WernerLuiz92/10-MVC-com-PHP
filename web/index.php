@@ -12,9 +12,6 @@ $routes = require_once __DIR__.'/../config/routes.php';
 
 $path = $_SERVER['REQUEST_URI'];
 
-var_dump($path);
-exit();
-
 if (!isset($path)) {
     $path = '/';
 } elseif (!array_key_exists($path, $routes)) {
@@ -23,10 +20,10 @@ if (!isset($path)) {
 
 $isLoginRoute = stripos($path, 'login');
 
-if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
-    header('Location: /login');
-    exit();
-}
+// if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
+//     header('Location: /login');
+//     exit();
+// }
 
 $psr17Factory = new Psr17Factory();
 
@@ -40,6 +37,9 @@ $creator = new ServerRequestCreator(
 $request = $creator->fromGlobals();
 
 $classController = $routes[$path];
+
+var_dump($classController);
+exit();
 
 /** @var InterfaceRequestController $classController */
 $controller = new $classController();
