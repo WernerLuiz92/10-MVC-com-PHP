@@ -2,22 +2,23 @@
 
 namespace Werner\MVC\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
-use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
 class DeleteCourse implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
-    public function __construct()
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = (new EntityManagerCreator())
-            ->getEntityManager();
+        $this->entityManager = $entityManager;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

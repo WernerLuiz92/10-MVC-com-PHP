@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
-use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
 class Persist implements RequestHandlerInterface
@@ -17,9 +16,9 @@ class Persist implements RequestHandlerInterface
 
     private EntityManagerInterface $entityManager;
 
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = (new EntityManagerCreator())->getEntityManager();
+        $this->entityManager = $entityManager;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

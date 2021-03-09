@@ -2,12 +2,12 @@
 
 namespace Werner\MVC\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\HtmlRenderTrait;
-use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
 class ListCourses implements RequestHandlerInterface
@@ -16,12 +16,9 @@ class ListCourses implements RequestHandlerInterface
 
     private $coursesRepository;
 
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $entityManager = (new EntityManagerCreator())
-            ->getEntityManager();
-        $this->coursesRepository = $entityManager
-            ->getRepository(Course::class);
+        $this->coursesRepository = $entityManager->getRepository(Course::class);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
