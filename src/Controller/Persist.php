@@ -3,6 +3,9 @@
 namespace Werner\MVC\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
@@ -18,7 +21,7 @@ class Persist implements InterfaceRequestController
         $this->entityManager = (new EntityManagerCreator())->getEntityManager();
     }
 
-    public function requestProcess(): void
+    public function requestProcess(ServerRequestInterface $request): ResponseInterface
     {
         $description = filter_input(
             INPUT_POST,
@@ -43,7 +46,10 @@ class Persist implements InterfaceRequestController
         $this->entityManager->flush();
 
         $this->setFlashMessage('success', $message, true);
-        header('Location: /listar-cursos', true, 302);
+
+        return new Response(302, [
+            'Location' => '/listar-cursos',
+        ]);
     }
 
     private function newCourse(string $description): Course

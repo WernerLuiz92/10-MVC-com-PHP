@@ -38,7 +38,7 @@
     <div class="col-md-6 login-form-1">
         <h3>Fazer login</h3>
         <form action="/realiza-login" method="POST">
-            <?php if (isset($_SESSION['message']) && !isset($_SESSION['logged_user'])) :?>
+            <?php if (isset($_SESSION['message']) && $_SESSION['position'] == 'login') :?>
                 <div class="alert alert-<?= $_SESSION['message_type']; ?> alert-dismissible fade show" role="alert">
                     <strong><?= (isset($_SESSION['strong_message'])) ? $_SESSION['strong_message'] : ''; ?></strong><br><?= $_SESSION['message']; ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

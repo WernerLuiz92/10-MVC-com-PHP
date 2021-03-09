@@ -2,11 +2,24 @@
 
 namespace Werner\MVC\Controller;
 
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Werner\MVC\Helper\FlashMessageTrait;
+
 class Logout implements InterfaceRequestController
 {
-    public function requestProcess(): void
+    use FlashMessageTrait;
+
+    public function requestProcess(ServerRequestInterface $request): ResponseInterface
     {
         session_destroy();
-        header('Location: /');
+
+        session_start();
+        $this->setFlashMessage('info', 'Usuário desconectado!', 'header', true);
+
+        return new Response(302, [
+            'Location' => '/',
+        ]);
     }
 }

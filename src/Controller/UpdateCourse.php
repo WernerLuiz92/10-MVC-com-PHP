@@ -2,6 +2,9 @@
 
 namespace Werner\MVC\Controller;
 
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Werner\MVC\Helper\HtmlRenderTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
@@ -20,7 +23,7 @@ class UpdateCourse implements InterfaceRequestController
             ->getRepository(Course::class);
     }
 
-    public function requestProcess(): void
+    public function requestProcess(ServerRequestInterface $request): ResponseInterface
     {
         $id = filter_input(
             INPUT_GET,
@@ -29,9 +32,9 @@ class UpdateCourse implements InterfaceRequestController
         );
 
         if (is_null($id) || $id === false) {
-            header('Location: /listar-cursos');
-
-            return;
+            return new Response(302, [
+                'Location' => '/listar-cursos',
+            ]);
         }
 
         $course = $this->courseRepository
@@ -39,11 +42,13 @@ class UpdateCourse implements InterfaceRequestController
 
         $description = $course->getDescription();
 
-        echo $this->renderView('courses/formCourse.php', [
+        $html = $this->renderView('courses/formCourse.php', [
             'title' => "Alterar Curso: $description",
             'activePage' => '/listar-cursos',
             'id' => $id,
             'description' => $description,
         ]);
+
+        return new Response(200, [], $html);
     }
 }

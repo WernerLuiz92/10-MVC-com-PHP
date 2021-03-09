@@ -2,11 +2,14 @@
 
 namespace Werner\MVC\Controller;
 
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\User;
 
-class ValidateLogin extends ControllerViews implements InterfaceRequestController
+class ValidateLogin implements InterfaceRequestController
 {
     use FlashMessageTrait;
 
@@ -18,7 +21,7 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
         $this->userRepository = $entityManager->getRepository(User::class);
     }
 
-    public function requestProcess(): void
+    public function requestProcess(ServerRequestInterface $request): ResponseInterface
     {
         $email = filter_input(
             INPUT_POST,
@@ -32,26 +35,31 @@ class ValidateLogin extends ControllerViews implements InterfaceRequestControlle
         );
 
         if (is_null($email) || $email === false) {
-            $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!');
-            header('Location: /login');
+            $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!', 'login');
 
-            return;
+            return new Response(302, [
+                'Location' => '/login',
+            ]);
         }
 
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if (is_null($user) || !$user->passwordMatch($password)) {
-            $this->setFlashMessage('danger', 'Por favor verifique.', false, 'E-mail ou Senha incorretos!');
-            header('Location: /login');
+            $this->setFlashMessage('danger', 'Por favor verifique.', false, 'E-mail ou Senha incorretos!', 'login');
 
-            return;
+            return new Response(302, [
+                'Location' => '/login',
+            ]);
         }
 
         $_SESSION['logged_user'] = true;
         $_SESSION['logged_user_name'] = $user->getName();
 
         $this->setFlashMessage('info', "Usuário {$_SESSION['logged_user_name']} logado com sucesso!", true);
-        header('Location: /');
+
+        return new Response(302, [
+            'Location' => '/',
+        ]);
     }
 }

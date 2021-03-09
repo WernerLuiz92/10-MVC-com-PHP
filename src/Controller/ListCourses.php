@@ -2,6 +2,9 @@
 
 namespace Werner\MVC\Controller;
 
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Werner\MVC\Helper\HtmlRenderTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
@@ -20,14 +23,16 @@ class ListCourses implements InterfaceRequestController
             ->getRepository(Course::class);
     }
 
-    public function requestProcess(): void
+    public function requestProcess(ServerRequestInterface $request): ResponseInterface
     {
         $courses = $this->coursesRepository->findAll();
 
-        echo $this->renderView('courses/listCourses.php', [
+        $html = $this->renderView('courses/listCourses.php', [
             'title' => 'Lista de Cursos',
             'activePage' => '/listar-cursos',
             'courses' => $courses,
         ]);
+
+        return new Response(200, [], $html);
     }
 }

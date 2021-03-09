@@ -9,10 +9,7 @@ session_start();
 require_once __DIR__.'/../vendor/autoload.php';
 
 $routes = require_once __DIR__.'/../config/routes.php';
-// PHP Localhost
-//$path = $_SERVER['PATH_INFO'];
 
-// Heroku
 $path = $_SERVER['REQUEST_URI'];
 
 if (!isset($path)) {

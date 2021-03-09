@@ -2,6 +2,9 @@
 
 namespace Werner\MVC\Controller;
 
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
@@ -16,7 +19,7 @@ class DeleteCourse implements InterfaceRequestController
             ->getEntityManager();
     }
 
-    public function requestProcess(): void
+    public function requestProcess(ServerRequestInterface $request): ResponseInterface
     {
         $id = filter_input(
             INPUT_GET,
@@ -26,18 +29,20 @@ class DeleteCourse implements InterfaceRequestController
 
         if (is_null($id) || $id === false) {
             $this->setFlashMessage('danger', 'O ID informado não é válido!');
-            header('Location: /listar-cursos');
 
-            return;
+            return new Response(302, [
+                'Location' => '/listar-cursos',
+            ]);
         }
 
         $course = $this->entityManager->find(Course::class, $id);
 
         if (is_null($course)) {
             $this->setFlashMessage('danger', 'O ID informado não foi encontrado!');
-            header('Location: /listar-cursos');
 
-            return;
+            return new Response(302, [
+                'Location' => '/listar-cursos',
+            ]);
         }
 
         $this->setFlashMessage('danger', "Curso {$course->getDescription()} excluído!", true);
@@ -45,6 +50,8 @@ class DeleteCourse implements InterfaceRequestController
         $this->entityManager->remove($course);
         $this->entityManager->flush();
 
-        header('Location: /listar-cursos');
+        return new Response(302, [
+            'Location' => '/listar-cursos',
+        ]);
     }
 }
