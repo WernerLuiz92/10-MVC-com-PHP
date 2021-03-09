@@ -2,7 +2,7 @@
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
-use Werner\MVC\Controller\InterfaceRequestController;
+use Psr\Http\Server\RequestHandlerInterface;
 
 session_start();
 
@@ -10,7 +10,14 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $routes = require_once __DIR__.'/../config/routes.php';
 
+// Tive que utilizar esta função para pegar apenas a parte relativa
+// ao path da requisição, pois a variável REQUEST_URI traz junto
+// os argumentos passados por GET.
 $path = $_SERVER['REQUEST_URI'];
+if (strpos($path, '?') !== false) {
+    $length = strpos($path, '?');
+    $path = substr($path, 0, $length);
+}
 
 if (!isset($path)) {
     $path = '/';
@@ -38,9 +45,9 @@ $request = $creator->fromGlobals();
 
 $classController = $routes[$path];
 
-/** @var InterfaceRequestController $classController */
+/** @var RequestHandlerInterface $controller */
 $controller = new $classController();
-$response = $controller->requestProcess($request);
+$response = $controller->handle($request);
 
 foreach ($response->getHeaders() as $name => $values) {
     foreach ($values as $value) {
