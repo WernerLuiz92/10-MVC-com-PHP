@@ -2,28 +2,15 @@
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
-use Werner\MVC\Controller\InterfaceRequestController;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Werner\MVC\Helper\PathHandler;
 
 session_start();
 
 require_once __DIR__.'/../vendor/autoload.php';
 
 $routes = require_once __DIR__.'/../config/routes.php';
-
-$path = $_SERVER['REQUEST_URI'];
-
-if (!isset($path)) {
-    $path = '/';
-} elseif (!array_key_exists($path, $routes)) {
-    $path = '/*';
-}
-
-$isLoginRoute = stripos($path, 'login');
-
-if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
-    header('Location: /login');
-    exit();
-}
 
 $psr17Factory = new Psr17Factory();
 
@@ -36,11 +23,14 @@ $creator = new ServerRequestCreator(
 
 $request = $creator->fromGlobals();
 
-$classController = $routes[$path];
+$classController = PathHandler::handle($request, $routes);
 
-/** @var InterfaceRequestController $classController */
-$controller = new $classController();
-$response = $controller->requestProcess($request);
+/** @var ContainerInterface $container */
+$container = require_once __DIR__.'/../config/dependencies.php';
+
+/** @var RequestHandlerInterface $controller */
+$controller = $container->get($classController);
+$response = $controller->handle($request);
 
 foreach ($response->getHeaders() as $name => $values) {
     foreach ($values as $value) {

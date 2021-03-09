@@ -5,13 +5,14 @@ namespace Werner\MVC\Controller;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\HtmlRenderTrait;
 
-class HomePage implements InterfaceRequestController
+class HomePage implements RequestHandlerInterface
 {
     use HtmlRenderTrait;
 
-    public function requestProcess(RequestInterface $request): ResponseInterface
+    public function handle(RequestInterface $request): ResponseInterface
     {
         $html = $this->renderView('homePage.php', [
             'title' => '',

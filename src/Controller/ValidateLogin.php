@@ -2,39 +2,33 @@
 
 namespace Werner\MVC\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
-use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\User;
 
-class ValidateLogin implements InterfaceRequestController
+class ValidateLogin implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
     private $userRepository;
 
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $entityManager = (new EntityManagerCreator())->getEntityManager();
         $this->userRepository = $entityManager->getRepository(User::class);
     }
 
-    public function requestProcess(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $email = filter_input(
-            INPUT_POST,
-            'email',
-            FILTER_VALIDATE_EMAIL
-        );
-        $password = filter_input(
-            INPUT_POST,
-            'password',
-            FILTER_SANITIZE_STRING
-        );
+        $parsedBody = $request->getParsedBody();
 
-        if (is_null($email) || $email === false) {
+        $email = filter_var($parsedBody['email'], FILTER_VALIDATE_EMAIL);
+        $password = filter_var($parsedBody['password'], FILTER_SANITIZE_STRING);
+
+        if ($email === false) {
             $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!', 'login');
 
             return new Response(302, [
