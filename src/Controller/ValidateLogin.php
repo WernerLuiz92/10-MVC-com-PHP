@@ -5,11 +5,12 @@ namespace Werner\MVC\Controller;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\User;
 
-class ValidateLogin implements InterfaceRequestController
+class ValidateLogin implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
@@ -21,7 +22,7 @@ class ValidateLogin implements InterfaceRequestController
         $this->userRepository = $entityManager->getRepository(User::class);
     }
 
-    public function requestProcess(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $email = filter_input(
             INPUT_POST,

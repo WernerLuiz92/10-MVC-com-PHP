@@ -5,11 +5,12 @@ namespace Werner\MVC\Controller;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\HtmlRenderTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
-class UpdateCourse implements InterfaceRequestController
+class UpdateCourse implements RequestHandlerInterface
 {
     use HtmlRenderTrait;
 
@@ -23,7 +24,7 @@ class UpdateCourse implements InterfaceRequestController
             ->getRepository(Course::class);
     }
 
-    public function requestProcess(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $id = filter_input(
             INPUT_GET,

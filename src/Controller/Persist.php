@@ -6,11 +6,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
-class Persist implements InterfaceRequestController
+class Persist implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
@@ -21,7 +22,7 @@ class Persist implements InterfaceRequestController
         $this->entityManager = (new EntityManagerCreator())->getEntityManager();
     }
 
-    public function requestProcess(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $description = filter_input(
             INPUT_POST,

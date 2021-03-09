@@ -5,11 +5,12 @@ namespace Werner\MVC\Controller;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
-class DeleteCourse implements InterfaceRequestController
+class DeleteCourse implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
@@ -19,7 +20,7 @@ class DeleteCourse implements InterfaceRequestController
             ->getEntityManager();
     }
 
-    public function requestProcess(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $id = filter_input(
             INPUT_GET,
