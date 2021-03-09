@@ -12,6 +12,9 @@ $routes = require_once __DIR__.'/../config/routes.php';
 
 $path = $_SERVER['REQUEST_URI'];
 
+var_dump($path);
+exit();
+
 if (!isset($path)) {
     $path = '/';
 } elseif (!array_key_exists($path, $routes)) {
