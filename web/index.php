@@ -9,17 +9,18 @@ session_start();
 require_once __DIR__.'/../vendor/autoload.php';
 
 $routes = require_once __DIR__.'/../config/routes.php';
-$path = $_SERVER['PATH_INFO'];
+// $path = $_SERVER['PATH_INFO'];
 
-var_dump($path);
+// var_dump($path);
 
-exit();
+// exit();
 
-if (!isset($_SERVER['PATH_INFO'])) {
-    $path = '/';
-} elseif (!array_key_exists($path, $routes)) {
-    $path = '/*';
-}
+// if (!isset($_SERVER['PATH_INFO'])) {
+//     $path = '/';
+// } elseif (!array_key_exists($path, $routes)) {
+//     $path = '/*';
+// }
+$path = '/login';
 
 $isLoginRoute = stripos($path, 'login');
 
