@@ -35,8 +35,6 @@ class ValidateLogin implements InterfaceRequestController
         );
 
         if (is_null($email) || $email === false) {
-            echo 'Entrou Email invalido';
-            exit();
             $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!', 'login');
 
             return new Response(302, [
@@ -47,9 +45,10 @@ class ValidateLogin implements InterfaceRequestController
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
+        var_dump($user);
+        exit();
+
         if (is_null($user) || !$user->passwordMatch($password)) {
-            echo 'Entrou senha errada';
-            exit();
             $this->setFlashMessage('danger', 'Por favor verifique.', false, 'E-mail ou Senha incorretos!', 'login');
 
             return new Response(302, [
