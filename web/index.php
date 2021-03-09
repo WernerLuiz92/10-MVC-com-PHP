@@ -20,10 +20,10 @@ if (!isset($path)) {
 
 $isLoginRoute = stripos($path, 'login');
 
-// if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
-//     header('Location: /login');
-//     exit();
-// }
+if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
+    header('Location: /login');
+    exit();
+}
 
 $psr17Factory = new Psr17Factory();
 

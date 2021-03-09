@@ -34,6 +34,12 @@ class ValidateLogin implements InterfaceRequestController
             FILTER_SANITIZE_STRING
         );
 
+        echo '<pre>';
+        var_dump($email);
+        var_dump($password);
+        echo '</pre>';
+        exit();
+
         if (is_null($email) || $email === false) {
             $this->setFlashMessage('warning', 'Por favor verifique.', false, 'E-mail inválido!', 'login');
 
