@@ -42,27 +42,28 @@ class ValidateLogin implements InterfaceRequestController
             ]);
         }
 
-        /** @var User $user */
-        $user = $this->userRepository->findOneBy(['email' => $email]);
+        // /** @var User $user */
+        // $user = $this->userRepository->findOneBy(['email' => $email]);
+        $users = $this->userRepository->findAll();
 
-        var_dump($user);
+        var_dump($users);
         exit();
 
-        if (is_null($user) || !$user->passwordMatch($password)) {
-            $this->setFlashMessage('danger', 'Por favor verifique.', false, 'E-mail ou Senha incorretos!', 'login');
+        // if (is_null($user) || !$user->passwordMatch($password)) {
+        //     $this->setFlashMessage('danger', 'Por favor verifique.', false, 'E-mail ou Senha incorretos!', 'login');
 
-            return new Response(302, [
-                'Location' => '/login',
-            ]);
-        }
+        //     return new Response(302, [
+        //         'Location' => '/login',
+        //     ]);
+        // }
 
-        $_SESSION['logged_user'] = true;
-        $_SESSION['logged_user_name'] = $user->getName();
+        // $_SESSION['logged_user'] = true;
+        // $_SESSION['logged_user_name'] = $user->getName();
 
-        $this->setFlashMessage('info', "Usuário {$_SESSION['logged_user_name']} logado com sucesso!", true);
+        // $this->setFlashMessage('info', "Usuário {$_SESSION['logged_user_name']} logado com sucesso!", true);
 
-        return new Response(302, [
-            'Location' => '/',
-        ]);
+        // return new Response(302, [
+        //     'Location' => '/',
+        // ]);
     }
 }
