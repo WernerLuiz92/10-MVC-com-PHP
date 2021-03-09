@@ -11,6 +11,10 @@ require_once __DIR__.'/../vendor/autoload.php';
 $routes = require_once __DIR__.'/../config/routes.php';
 $path = $_SERVER['PATH_INFO'];
 
+var_dump($path);
+
+exit();
+
 if (!isset($_SERVER['PATH_INFO'])) {
     $path = '/';
 } elseif (!array_key_exists($path, $routes)) {
@@ -36,10 +40,6 @@ $creator = new ServerRequestCreator(
 $request = $creator->fromGlobals();
 
 $classController = $routes[$path];
-
-var_dump($classController);
-
-exit();
 
 /** @var InterfaceRequestController $classController */
 $controller = new $classController();
