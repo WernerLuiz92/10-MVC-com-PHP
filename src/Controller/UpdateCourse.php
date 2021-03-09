@@ -29,12 +29,14 @@ class UpdateCourse implements RequestHandlerInterface
 
         $id = filter_var($queryParams['id'], FILTER_VALIDATE_INT);
 
+        $response = new Response(302, [
+            'Location' => '/listar-cursos',
+        ]);
+
         if ($id === false) {
             $this->setFlashMessage('warning', 'Por favor verifique.', false, 'ID inválido ou em branco!');
 
-            return new Response(302, [
-                'Location' => '/listar-cursos',
-            ]);
+            return $response;
         }
 
         $course = $this->courseRepository
@@ -43,9 +45,7 @@ class UpdateCourse implements RequestHandlerInterface
         if (is_null($course)) {
             $this->setFlashMessage('danger', 'Por favor verifique.', false, 'ID não encontrado!');
 
-            return new Response(302, [
-                'Location' => '/listar-cursos',
-            ]);
+            return $response;
         }
 
         $description = $course->getDescription();
