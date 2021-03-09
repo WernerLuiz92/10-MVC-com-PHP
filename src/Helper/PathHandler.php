@@ -2,30 +2,26 @@
 
 namespace Werner\MVC\Helper;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 class PathHandler
 {
-    public static function handle(string $requestURI, array $routes): string
+    public static function handle(ServerRequestInterface $request, array $routes): string
     {
-        $path = $requestURI;
+        $uri = $request->getUri();
+        $path = $uri->getPath();
 
-        if (strpos($path, '?') !== false) {
-            $length = strpos($path, '?');
-            $path = substr($path, 0, $length);
-        }
+        $classControllerRoutes = array_merge($routes['needAuth'], $routes['byPass']);
 
-        if (!isset($path)) {
-            $path = '/';
-        } elseif (!array_key_exists($path, $routes)) {
+        if (!array_key_exists($path, $classControllerRoutes)) {
             $path = '/*';
         }
 
-        $isLoginRoute = stripos($path, 'login');
-
-        if (!isset($_SESSION['logged_user']) && $isLoginRoute === false && $path != '/' && $path != '/*') {
+        if (!isset($_SESSION['logged_user']) && array_key_exists($path, $routes['needAuth'])) {
             $path = '/login';
         }
 
-        $classController = $routes[$path];
+        $classController = $classControllerRoutes[$path];
 
         return $classController;
     }

@@ -23,7 +23,7 @@ $creator = new ServerRequestCreator(
 
 $request = $creator->fromGlobals();
 
-$classController = PathHandler::handle($_SERVER['REQUEST_URI'], $routes);
+$classController = PathHandler::handle($request, $routes);
 
 /** @var ContainerInterface $container */
 $container = require_once __DIR__.'/../config/dependencies.php';
