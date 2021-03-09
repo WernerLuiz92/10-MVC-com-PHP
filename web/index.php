@@ -8,6 +8,10 @@ session_start();
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+var_dump($_SERVER);
+
+exit();
+
 $routes = require_once __DIR__.'/../config/routes.php';
 // $path = $_SERVER['PATH_INFO'];
 
