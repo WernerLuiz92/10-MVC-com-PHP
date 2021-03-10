@@ -34,8 +34,7 @@
                         <a class="nav-link <?= ($_SESSION['activePage'] == '/novo-curso') ? 'active' : ''; ?> <?= (isset($_SESSION['logged_user'])) ? '' : 'disabled'; ?>" href="/novo-curso">Cadastrar Curso</a>
                     </li>
                 </ul>
-            </div>
-            <ul class="navbar-nav me-1 mb-2 mb-md-0">
+                <ul class="navbar-nav me-1 mb-2 mb-md-0">
                 <?php if (!isset($_SESSION['logged_user'])) {?>
                     <li class="nav-item">
                         <a href="/login" class="nav-link <?= ($_SESSION['activePage'] == '/login') ? 'active' : ''; ?>">Login</a>
@@ -47,9 +46,9 @@
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Sair</a>
                     </li>
-                <?php } ?>
-                    
-            </ul>
+                <?php } ?>   
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="container mt-4">
