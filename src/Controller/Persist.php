@@ -61,6 +61,9 @@ class Persist implements InterfaceRequestController
 
     private function updateCourse(int $id, string $description)
     {
+        echo 'entrou aqui!!';
+        exit();
+
         $course = $this->entityManager
             ->getReference(Course::class, $id);
 

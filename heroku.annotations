@@ -1,0 +1,16 @@
+postgres://
+
+User
+osuqulbdhpesfm
+
+Password
+a01fd3647f55142ba178320da3b2c45edaa11065fd7030da49d119785632651b
+
+Host
+ec2-54-145-102-149.compute-1.amazonaws.com
+
+Port
+5432
+
+Database
+d2cqlte31etun
