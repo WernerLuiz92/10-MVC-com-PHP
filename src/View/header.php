@@ -25,20 +25,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">     
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link <?= ($activePage == '/') ? 'active' : ''; ?>" href="/">Página Inicial</a>
+                        <a class="nav-link <?= ($_SESSION['activePage'] == '/') ? 'active' : ''; ?>" href="/">Página Inicial</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= ($activePage == '/listar-cursos') ? 'active' : ''; ?> <?= (isset($_SESSION['logged_user'])) ? '' : 'disabled'; ?>" href="/listar-cursos">Listar Cursos</a>
+                        <a class="nav-link <?= ($_SESSION['activePage'] == '/listar-cursos') ? 'active' : ''; ?> <?= (isset($_SESSION['logged_user'])) ? '' : 'disabled'; ?>" href="/listar-cursos">Listar Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= ($activePage == '/novo-curso') ? 'active' : ''; ?> <?= (isset($_SESSION['logged_user'])) ? '' : 'disabled'; ?>" href="/novo-curso">Cadastrar Curso</a>
+                        <a class="nav-link <?= ($_SESSION['activePage'] == '/novo-curso') ? 'active' : ''; ?> <?= (isset($_SESSION['logged_user'])) ? '' : 'disabled'; ?>" href="/novo-curso">Cadastrar Curso</a>
                     </li>
                 </ul>
             </div>
             <ul class="navbar-nav">
                 <?php if (!isset($_SESSION['logged_user'])) {?>
                     <li class="nav-item ml-auto">
-                        <a href="/login" class="nav-link <?= ($activePage == '/login') ? 'active' : ''; ?>">Login</a>
+                        <a href="/login" class="nav-link <?= ($_SESSION['activePage'] == '/login') ? 'active' : ''; ?>">Login</a>
                     </li>
                 <?php } else { ?>
                     <li class="nav-item ml-auto mt-2 me-2">

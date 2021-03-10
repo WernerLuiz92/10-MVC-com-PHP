@@ -11,6 +11,8 @@ class PathHandler
         $uri = $request->getUri();
         $path = $uri->getPath();
 
+        $_SESSION['activePage'] = $path;
+
         $classControllerRoutes = array_merge($routes['needAuth'], $routes['byPass']);
 
         if (!array_key_exists($path, $classControllerRoutes)) {
