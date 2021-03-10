@@ -55,10 +55,11 @@ class Persist implements RequestHandlerInterface
 
     private function updateCourse(int $id, string $description)
     {
-        var_dump($id, $description);
-        exit();
         $course = $this->entityManager
             ->getReference(Course::class, $id);
+
+        var_dump($course);
+        exit();
 
         $course->setDescription($description);
 

@@ -41,9 +41,11 @@ class Course implements JsonSerializable
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
     public function jsonSerialize()
