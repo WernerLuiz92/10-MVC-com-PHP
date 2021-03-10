@@ -2,43 +2,51 @@
 
 namespace Werner\MVC\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Werner\MVC\Helper\FlashMessageTrait;
 use Werner\MVC\Helper\HtmlRenderTrait;
-use Werner\MVC\Infra\EntityManagerCreator;
 use Werner\MVC\Model\Entity\Course;
 
-class UpdateCourse implements InterfaceRequestController
+class UpdateCourse implements RequestHandlerInterface
 {
     use HtmlRenderTrait;
+    use FlashMessageTrait;
 
     private $courseRepository;
 
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $entityManager = (new EntityManagerCreator())
-            ->getEntityManager();
-        $this->courseRepository = $entityManager
-            ->getRepository(Course::class);
+        $this->courseRepository = $entityManager->getRepository(Course::class);
     }
 
-    public function requestProcess(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = filter_input(
-            INPUT_GET,
-            'id',
-            FILTER_VALIDATE_INT
-        );
+        $queryParams = $request->getQueryParams();
 
-        if (is_null($id) || $id === false) {
-            return new Response(302, [
-                'Location' => '/listar-cursos',
-            ]);
+        $id = filter_var($queryParams['id'], FILTER_VALIDATE_INT);
+
+        $response = new Response(302, [
+            'Location' => '/listar-cursos',
+        ]);
+
+        if ($id === false) {
+            $this->setFlashMessage('warning', 'Por favor verifique.', false, 'ID inválido ou em branco!');
+
+            return $response;
         }
 
         $course = $this->courseRepository
             ->find($id);
+
+        if (is_null($course)) {
+            $this->setFlashMessage('danger', 'Por favor verifique.', false, 'ID não encontrado!');
+
+            return $response;
+        }
 
         $description = $course->getDescription();
 
