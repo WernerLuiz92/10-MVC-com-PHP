@@ -41,7 +41,7 @@
                     </li>
                 <?php } else { ?>
                     <li class="nav-item">
-                        <span class="nav-link">Olá <?= $_SESSION['logged_user_name']; ?>!</span>
+                        <span class="nav-link active">Olá <?= $_SESSION['logged_user_name']; ?>!</span>
                     </li>
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Sair</a>
