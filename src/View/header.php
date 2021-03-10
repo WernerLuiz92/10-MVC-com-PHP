@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<?= $favicon; ?>" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <title>Werner - MVC</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">

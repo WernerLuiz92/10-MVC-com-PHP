@@ -1,3 +1,4 @@
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
+    RewriteRule ^favicon\.(gif|ico|png|jpe?g)$ /web/favicon.ico [L,NC]
