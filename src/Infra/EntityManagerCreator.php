@@ -5,7 +5,6 @@ namespace Werner\MVC\Infra;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Setup;
 
 class EntityManagerCreator
 {
@@ -47,11 +46,6 @@ class EntityManagerCreator
         $config->setProxyNamespace('Werner\\MVC\\Proxies');
 
         $config->setAutoGenerateProxyClasses(true);
-
-        // $config = Setup::createAnnotationMetadataConfiguration(
-        //     $paths,
-        //     $isDevMode
-        // );
 
         return EntityManager::create($psqlDbParams, $config);
     }
