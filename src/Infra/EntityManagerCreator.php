@@ -2,6 +2,7 @@
 
 namespace Werner\MVC\Infra;
 
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
@@ -35,10 +36,22 @@ class EntityManagerCreator
         // -> user (string): Username to use when connecting to the database.
         // -> password (string): Password to use when connecting to the database.
 
-        $config = Setup::createAnnotationMetadataConfiguration(
-            $paths,
-            $isDevMode
-        );
+        $cache = new \Doctrine\Common\Cache\ArrayCache();
+
+        $config = new Configuration();
+        $config->setMetadataCacheImpl($cache);
+        $driverImpl = $config->newDefaultAnnotationDriver(__DIR__.'/../Model/Entity');
+        $config->setMetadataDriverImpl($driverImpl);
+        $config->setQueryCacheImpl($cache);
+        $config->setProxyDir(__DIR__.'/../Proxies');
+        $config->setProxyNamespace('Werner\\MVC\\Proxies');
+
+        $config->setAutoGenerateProxyClasses(true);
+
+        // $config = Setup::createAnnotationMetadataConfiguration(
+        //     $paths,
+        //     $isDevMode
+        // );
 
         return EntityManager::create($psqlDbParams, $config);
     }
