@@ -13,6 +13,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $routes = require_once __DIR__.'/../config/routes.php';
 
 $activePage = '';
+$favicon = __DIR__.'/favicon.ico';
 
 $psr17Factory = new Psr17Factory();
 
