@@ -23,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">     
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
                         <a class="nav-link <?= ($_SESSION['activePage'] == '/') ? 'active' : ''; ?>" href="/">Página Inicial</a>
                     </li>
@@ -35,16 +35,16 @@
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-1 mb-2 mb-md-0">
                 <?php if (!isset($_SESSION['logged_user'])) {?>
-                    <li class="nav-item ml-auto">
+                    <li class="nav-item">
                         <a href="/login" class="nav-link <?= ($_SESSION['activePage'] == '/login') ? 'active' : ''; ?>">Login</a>
                     </li>
                 <?php } else { ?>
-                    <li class="nav-item ml-auto mt-2 me-2">
+                    <li class="nav-item">
                         <span class="text-white">Olá <?= $_SESSION['logged_user_name']; ?>!</span>
                     </li>
-                    <li class="nav-item ml-auto">
+                    <li class="nav-item">
                         <a href="/logout" class="nav-link">Sair</a>
                     </li>
                 <?php } ?>
